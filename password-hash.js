@@ -1,12 +1,6 @@
 // imports
 const fs = require("fs");
-const crypto = require("crypto");
-
-// fonction qui génére un hash
-// à partir d'une chaine de carcatères
-const getHash = (pass, algo = "sha256") => {
-  return crypto.createHash(algo).update(pass).digest("hex");
-};
+const security = require("./my-modules/security");
 
 // Lecture du fichier des mots de passe
 const plainPasswordsContent = fs.readFileSync("./data/plain-passwords.txt");
@@ -16,7 +10,7 @@ const hashedPassword = [];
 // Boucle sur la liste des mots de passe
 for (let pwd of passList) {
   // ajout du hash au tableau
-  hashedPassword.push(getHash(pwd));
+  hashedPassword.push(security.getHash(pwd));
 }
 
 // Ecriture dans un fichier
